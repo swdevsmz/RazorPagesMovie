@@ -15,6 +15,12 @@ namespace RazorPagesMovie.Models
                 serviceProvider.GetRequiredService<
                     DbContextOptions<RazorPagesMovieContext>>()))
             {
+
+                var script = context.Database.GenerateCreateScript();
+
+                context.Database.EnsureCreated();
+                context.Database.Migrate();
+
                 // Look for any movies.
                 if (context.Movie.Any())
                 {

@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using RazorPagesMovie.Data;
+using Microsoft.Data.Sqlite;
 
 namespace RazorPagesMovie
 {
@@ -27,10 +28,15 @@ namespace RazorPagesMovie
         {
             services.AddRazorPages();
 
+            // 
+            var keepAliveConnection = new SqliteConnection(Configuration.GetConnectionString("RazorPagesMovieContext"));
+            keepAliveConnection.Open();
+
             services.AddDbContext<RazorPagesMovieContext>(options =>
                     //options.UseSqlServer(Configuration.GetConnectionString("RazorPagesMovieContext")));
                     // sqlite�ɕύX
-                    options.UseSqlite(Configuration.GetConnectionString("RazorPagesMovieContext")));
+                    //options.UseSqlite(Configuration.GetConnectionString("RazorPagesMovieContext")));
+                    options.UseSqlite(keepAliveConnection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
