@@ -28,15 +28,15 @@ namespace RazorPagesMovie
         {
             services.AddRazorPages();
 
-            // 
-            var keepAliveConnection = new SqliteConnection(Configuration.GetConnectionString("RazorPagesMovieContext"));
-            keepAliveConnection.Open();
+            // inmemoryを使用する場合はコネクションを開ける必要がある 
+            //var keepAliveConnection = new SqliteConnection(Configuration.GetConnectionString("RazorPagesMovieContext"));
+            //keepAliveConnection.Open();
 
             services.AddDbContext<RazorPagesMovieContext>(options =>
                     //options.UseSqlServer(Configuration.GetConnectionString("RazorPagesMovieContext")));
                     // sqliteに変更
-                    //options.UseSqlite(Configuration.GetConnectionString("RazorPagesMovieContext")));
-                    options.UseSqlite(keepAliveConnection));
+                    options.UseSqlite(Configuration.GetConnectionString("RazorPagesMovieContext")));
+                    //options.UseSqlite(keepAliveConnection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

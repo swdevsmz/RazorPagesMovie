@@ -16,10 +16,11 @@ namespace RazorPagesMovie.Models
                     DbContextOptions<RazorPagesMovieContext>>()))
             {
 
-                var script = context.Database.GenerateCreateScript();
+                // InMemoryの場合はDataBaseをPG実行時に作成する必要がある
+                //var script = context.Database.GenerateCreateScript();
 
-                context.Database.EnsureCreated();
-                context.Database.Migrate();
+                //context.Database.EnsureCreated();
+                //context.Database.Migrate();
 
                 // Look for any movies.
                 if (context.Movie.Any())
